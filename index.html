@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Store - Tienda Online</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <style>
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: var(--radius-md);
+            margin-bottom: 1rem;
+        }
+        .cart-badge {
+            background: var(--secondary);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            position: relative;
+            top: -10px;
+            left: -5px;
+        }
+        #cart-items-list {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 1rem;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">LUXURY STORE</div>
+        <div class="nav-links">
+            <a href="#" id="btn-view-cart">Carrito <span class="cart-badge" id="cart-count">0</span></a>
+            <a href="admin.html">Admin</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header style="margin-bottom: 3rem; text-align: center;">
+            <h1 style="font-size: 3rem; margin-bottom: 1rem; background: linear-gradient(135deg, #fff, var(--primary-light)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Descubre lo Exclusivo</h1>
+            <p style="color: var(--text-dim); max-width: 600px; margin: 0 auto;">Productos seleccionados para quienes buscan calidad y diseño excepcional.</p>
+        </header>
+
+        <section class="grid" id="product-grid">
+            <!-- Products will be injected here -->
+        </section>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="modal-overlay" id="cart-modal">
+        <div class="modal">
+            <header style="display: flex; justify-content: space-between; align-items: center;">
+                <h2>Tu Carrito</h2>
+                <button class="btn btn-secondary" id="btn-close-cart" style="padding: 0.2rem 0.5rem;">&times;</button>
+            </header>
+            
+            <div id="cart-items-list">
+                <!-- Cart items injected here -->
+            </div>
+
+            <div style="margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 1.5rem;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 1.5rem;">
+                    <h3>Total</h3>
+                    <h3 id="cart-total">$0.00</h3>
+                </div>
+                <button class="btn btn-primary" style="width: 100%; padding: 1rem;" id="btn-checkout">Finalizar Compra</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="scripts/init.js"></script>
+    <script type="module" src="scripts/app.js"></script>
+</body>
+</html>
