@@ -50,7 +50,7 @@ function renderProducts() {
             <p style="color: var(--text-dim); font-size: 0.9rem; margin-bottom: 1.5rem; height: 3rem; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
                 ${product.description || 'Sin descripción disponible.'}
             </p>
-            <button class="btn btn-primary" style="width: 100%;" onclick="window.addToCart('${product.id}')">Agregar al Carrito</button>
+            <button class="btn btn-primary btn-add-to-cart" style="width: 100%;" data-id="${product.id}">Agregar al Carrito</button>
         </article>
     `).join('');
 }
@@ -97,10 +97,10 @@ function renderCartItems() {
                         <p style="color: var(--text-dim); font-size: 0.8rem;">$${parseFloat(product.price).toFixed(2)} x ${item.quantity}</p>
                     </div>
                 </div>
-                <div style="display: flex; align-items: center; gap: 0.5rem;">
-                    <button class="btn btn-secondary" style="padding: 2px 8px;" onclick="window.updateQty('${product.id}', ${item.quantity - 1})">-</button>
+                <div style="display: flex; align-items: center; gap: 0.5rem;" class="qty-controls">
+                    <button class="btn btn-secondary btn-qty-down" style="padding: 2px 8px;" data-id="${product.id}" data-qty="${item.quantity - 1}">-</button>
                     <span>${item.quantity}</span>
-                    <button class="btn btn-secondary" style="padding: 2px 8px;" onclick="window.updateQty('${product.id}', ${item.quantity + 1})">+</button>
+                    <button class="btn btn-secondary btn-qty-up" style="padding: 2px 8px;" data-id="${product.id}" data-qty="${item.quantity + 1}">+</button>
                 </div>
             </div>
         `;
@@ -109,15 +109,24 @@ function renderCartItems() {
     cartTotal.textContent = `$${total.toFixed(2)}`;
 }
 
-// Global functions for inline handlers
-window.addToCart = (id) => {
-    Storage.addToCart(id);
-    updateCartUI();
-    alert('Producto agregado al carrito');
-};
+// Event Delegation for Products and Cart
+productGrid.addEventListener('click', (e) => {
+    const btn = e.target.closest('.btn-add-to-cart');
+    if (btn) {
+        const id = btn.dataset.id;
+        Storage.addToCart(id);
+        updateCartUI();
+        alert('Producto agregado al carrito');
+    }
+});
 
-window.updateQty = (id, newQty) => {
-    Storage.updateCartQuantity(id, newQty);
-    updateCartUI();
-    renderCartItems();
-};
+cartItemsList.addEventListener('click', (e) => {
+    const btn = e.target.closest('.btn-qty-down, .btn-qty-up');
+    if (btn) {
+        const id = btn.dataset.id;
+        const newQty = parseInt(btn.dataset.qty);
+        Storage.updateCartQuantity(id, newQty);
+        updateCartUI();
+        renderCartItems();
+    }
+});
