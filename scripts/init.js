@@ -21,7 +21,7 @@ const SAMPLE_PRODUCTS = [
         name: "Lámpara de Diseño Nórdico",
         price: 85.00,
         category: "Hogar",
-        image: "https://images.unsplash.com/photo-1507473884658-660c3a37593c?auto=format&fit=crop&w=400&q=80",
+        image: "https://images.unsplash.com/photo-1542728928-1413eeae4d92?auto=format&fit=crop&w=400&q=80",
         description: "Ilumina tu espacio con estilo y calidez. Madera natural y acabados premium.",
         id: "sample-3"
     }
